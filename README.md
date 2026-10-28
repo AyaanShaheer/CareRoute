@@ -2,6 +2,9 @@
 
 CareRoute is an end-to-end **Operations Research + MLOps** web application designed to solve complex home-care scheduling challenges. It optimises daily carer rotas across real city street networks while respecting strict time windows, skill requirements, workload equity, and client-carer continuity of care, backed by an **XGBoost + TreeSHAP** late-visit risk and explainability model.
 
+<img width="1872" height="912" alt="Screenshot 2026-10-28 143930" src="https://github.com/user-attachments/assets/a996580a-08c6-456d-8568-deeeda792313" />
+
+
 ---
 
 ## Architecture & Tech Stack
@@ -148,7 +151,4 @@ export default nextConfig;
 
 ---
 
-## CV & Interview Bullet Points
-
-> * **CareRoute — Geospatial Carer Scheduling & Risk Engine:** Built an end-to-end home-care routing platform using **OSMnx**, **Google OR-Tools (VRPTW)**, and **FastAPI**, cutting simulated fleet travel time by **45.9%** and workload standard deviation by **56.9%** against a greedy baseline; integrated an **XGBoost + TreeSHAP** late-visit risk model (**ROC-AUC 0.8125**) visualised in a containerised **React/TypeScript** and **Leaflet** dashboard.
 
