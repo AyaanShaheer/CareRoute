@@ -7,6 +7,16 @@ CareRoute is an end-to-end **Operations Research + MLOps** web application desig
 
 ---
 
+## ✨ Key Features
+
+- **Geospatial Optimisation:** Real OpenStreetMap road network (Camden, London) via `OSMnx` + `NetworkX` shortest-path travel-time matrices.
+- **Multi-Objective VRPTW:** `Google OR-Tools` Guided Local Search balancing fleet travel time, carer continuity of care (Pareto weight β), and workload equity (duty-time soft bounds).
+- **Greedy Baseline:** Naive Earliest-Deadline-First heuristic for benchmark comparison.
+- **ML Risk Engine:** `XGBoost` late-visit classifier trained on 60 days of synthetic historical rota data, scored with `SHAP` TreeExplainer local feature attributions.
+- **Operations Dashboard:** `Next.js` + `TypeScript` + `React-Leaflet` interactive street-network map, risk-coloured visit markers, Pareto continuity slider, SHAP inspector, and priority risk queue.
+
+---
+
 ## Architecture & Tech Stack
 
 ```
@@ -120,6 +130,26 @@ Open **`http://localhost:3000`** in your browser.
 
 ---
 
+## Quick Start with Docker
+
+```bash
+docker compose up --build
+```
+
+This builds and starts the FastAPI backend (exposed on `http://localhost:8000`) and the Next.js dashboard (exposed on `http://localhost:3000`), with the backend health-gated startup.
+
+---
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/api/v1/health` | Service health, loaded carers/visits, graph size, and ML ROC-AUC. |
+| `GET` | `/api/v1/metadata` | Carers, client visits, and trained ML evaluation metrics. |
+| `POST` | `/api/v1/optimise` | Solve OR-Tools VRPTW schedule, score with XGBoost + TreeSHAP, compare to naive baseline. |
+
+---
+
 ## ⚠️ Known Environment Note (For OpenCode / AI Coding Agents)
 
 ### Issue: WSL2 Host-to-Browser Cross-Origin or `ECONNREFUSED` Fetch Failure
@@ -151,4 +181,14 @@ export default nextConfig;
 
 ---
 
+## Final Verification Checklist (for the Open-Source Agent)
 
+- [ ] Backend test suite passes: `pytest -v` (FastAPI + OR-Tools + XGBoost integration tests).
+- [ ] Lint passes: `ruff check backend scripts`.
+- [ ] Frontend compiles: `npx tsc --noEmit` and `npm run build`.
+- [ ] Docker images build: `docker compose build`.
+- [ ] Live stack healthy: FastAPI `/api/v1/health` → 200, Next.js proxy → 200, `POST /api/v1/optimise` → 200.
+
+---
+
+*Built with OR-Tools, XGBoost, FastAPI, Next.js, and OpenStreetMap data.*
